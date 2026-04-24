@@ -3,19 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>UAIL Interactive Keyword Cloud</title>
+<title>UAIL Interactive Keyword Cloud - Homepage Fit</title>
 <style>
-  :root {
-    --navy: #0c2d63;
-    --mid: #66789d;
-    --light: #9aa6bf;
-    --bg: #ffffff;
-  }
-
   html, body {
     margin: 0;
     padding: 0;
-    background: var(--bg);
+    background: transparent;
     font-family: Lato, Arial, Helvetica, sans-serif;
     overflow: hidden;
   }
@@ -23,12 +16,12 @@
   .uail-keyword-cloud {
     position: relative;
     width: 100%;
-    height: 500px;
-    min-height: 360px;
+    height: 330px;
+    min-height: 260px;
     overflow: hidden;
-    background: #ffffff;
-    cursor: default;
+    background: transparent;
     user-select: none;
+    cursor: default;
   }
 
   .uail-word {
@@ -44,55 +37,73 @@
     white-space: nowrap;
     opacity: var(--opacity);
     filter: blur(var(--blur));
+    text-shadow:
+      0 0 8px rgba(255,255,255,0.18),
+      0 0 18px rgba(67, 168, 255, 0.18);
     will-change: transform, opacity, filter;
     transition:
       opacity 0.35s ease,
       filter 0.35s ease,
-      color 0.35s ease;
+      color 0.35s ease,
+      text-shadow 0.35s ease;
     animation: uailFloat var(--float-duration) ease-in-out infinite alternate;
+    pointer-events: none;
   }
 
   .uail-word.is-near {
     opacity: 1;
     filter: blur(0);
-    color: #08265a;
+    color: #ffffff;
+    text-shadow:
+      0 0 14px rgba(255,255,255,0.35),
+      0 0 28px rgba(104, 199, 255, 0.35);
   }
 
   @keyframes uailFloat {
-    from { margin-top: -4px; }
-    to { margin-top: 4px; }
+    from { margin-top: -3px; }
+    to { margin-top: 3px; }
   }
 
-  @media (max-width: 760px) {
-    .uail-keyword-cloud { height: 420px; }
-    .uail-word { font-size: calc(var(--size) * 0.72); }
+  @media (max-width: 1200px) {
+    .uail-keyword-cloud { height: 300px; }
+    .uail-word { font-size: calc(var(--size) * 0.88); }
   }
 
-  @media (max-width: 480px) {
-    .uail-keyword-cloud { height: 360px; }
-    .uail-word { font-size: calc(var(--size) * 0.55); }
+  @media (max-width: 900px) {
+    .uail-keyword-cloud { height: 270px; }
+    .uail-word { font-size: calc(var(--size) * 0.75); }
+  }
+
+  @media (max-width: 600px) {
+    .uail-keyword-cloud { height: 240px; }
+    .uail-word { font-size: calc(var(--size) * 0.58); }
   }
 </style>
 </head>
 <body>
 <section class="uail-keyword-cloud" id="uailKeywordCloud" aria-label="Interactive keyword cloud for underwater acoustics intelligence research">
-  <span class="uail-word" style="--x:50%;--y:39%;--size:45px;--weight:800;--color:#0c2d63;--opacity:1;--blur:0px;--float-duration:4.2s" data-depth="42">Underwater Acoustics</span>
-  <span class="uail-word" style="--x:30%;--y:47%;--size:41px;--weight:800;--color:#0c2d63;--opacity:1;--blur:0px;--float-duration:3.7s" data-depth="38">Passive Sonar</span>
-  <span class="uail-word" style="--x:60%;--y:61%;--size:39px;--weight:800;--color:#0c2d63;--opacity:1;--blur:0px;--float-duration:4.8s" data-depth="36">Target Detection</span>
-  <span class="uail-word" style="--x:44%;--y:76%;--size:40px;--weight:800;--color:#0c2d63;--opacity:1;--blur:0px;--float-duration:3.9s" data-depth="35">Ship Classification</span>
-  <span class="uail-word" style="--x:69%;--y:29%;--size:38px;--weight:760;--color:#153164;--opacity:.92;--blur:.15px;--float-duration:4.4s" data-depth="34">Active Sonar</span>
 
-  <span class="uail-word" style="--x:47%;--y:18%;--size:30px;--weight:700;--color:#677796;--opacity:.58;--blur:.7px;--float-duration:4.9s" data-depth="24">Signal Processing</span>
-  <span class="uail-word" style="--x:21%;--y:24%;--size:31px;--weight:700;--color:#647493;--opacity:.62;--blur:.6px;--float-duration:4.1s" data-depth="25">Scattering</span>
-  <span class="uail-word" style="--x:79%;--y:46%;--size:30px;--weight:700;--color:#697899;--opacity:.66;--blur:.5px;--float-duration:4.7s" data-depth="25">Reverberation</span>
-  <span class="uail-word" style="--x:68%;--y:75%;--size:30px;--weight:700;--color:#68799a;--opacity:.64;--blur:.45px;--float-duration:4.3s" data-depth="23">Array Processing</span>
-  <span class="uail-word" style="--x:29%;--y:83%;--size:30px;--weight:700;--color:#697899;--opacity:.72;--blur:.25px;--float-duration:3.8s" data-depth="23">Machine Learning</span>
+  <!-- Main cluster positioned to avoid a typical center title block and corner callout cards -->
+  <span class="uail-word" style="--x:27%;--y:45%;--size:31px;--weight:760;--color:#ffffff;--opacity:0.92;--blur:0.05px;--float-duration:4.1s" data-depth="24">Passive Sonar</span>
+  <span class="uail-word" style="--x:72%;--y:41%;--size:30px;--weight:740;--color:#eef8ff;--opacity:0.9;--blur:0.08px;--float-duration:4.6s" data-depth="23">Active Sonar</span>
 
-  <span class="uail-word" style="--x:18%;--y:59%;--size:29px;--weight:700;--color:#53678e;--opacity:.72;--blur:.3px;--float-duration:4.5s" data-depth="22">Beamforming</span>
-  <span class="uail-word" style="--x:70%;--y:57%;--size:26px;--weight:600;--color:#9aa4bb;--opacity:.58;--blur:.65px;--float-duration:5.2s" data-depth="16">Source Localization</span>
-  <span class="uail-word" style="--x:35%;--y:33%;--size:26px;--weight:620;--color:#8d9ab3;--opacity:.56;--blur:.75px;--float-duration:5s" data-depth="15">DOA Estimation</span>
-  <span class="uail-word" style="--x:23%;--y:71%;--size:24px;--weight:600;--color:#9aa4bb;--opacity:.52;--blur:.8px;--float-duration:5.3s" data-depth="14">Acoustic Propagation</span>
-  <span class="uail-word" style="--x:57%;--y:25%;--size:23px;--weight:600;--color:#a4adc0;--opacity:.45;--blur:1px;--float-duration:5.6s" data-depth="13">Frequency Analysis</span>
+  <span class="uail-word" style="--x:39%;--y:59%;--size:37px;--weight:800;--color:#ffffff;--opacity:0.96;--blur:0px;--float-duration:3.9s" data-depth="32">Underwater Acoustics</span>
+  <span class="uail-word" style="--x:63%;--y:59%;--size:35px;--weight:780;--color:#f4fbff;--opacity:0.94;--blur:0.04px;--float-duration:4.3s" data-depth="30">Target Detection</span>
+
+  <span class="uail-word" style="--x:29%;--y:73%;--size:24px;--weight:640;--color:#d8efff;--opacity:0.78;--blur:0.28px;--float-duration:4.8s" data-depth="18">Beamforming</span>
+  <span class="uail-word" style="--x:42%;--y:75%;--size:26px;--weight:660;--color:#d8efff;--opacity:0.8;--blur:0.24px;--float-duration:5.1s" data-depth="18">DOA Estimation</span>
+  <span class="uail-word" style="--x:56%;--y:75%;--size:25px;--weight:650;--color:#d8efff;--opacity:0.78;--blur:0.26px;--float-duration:4.7s" data-depth="18">Signal Processing</span>
+  <span class="uail-word" style="--x:71%;--y:74%;--size:24px;--weight:640;--color:#d8efff;--opacity:0.76;--blur:0.3px;--float-duration:5.0s" data-depth="18">Source Localization</span>
+
+  <span class="uail-word" style="--x:20%;--y:61%;--size:21px;--weight:620;--color:#bfe1ff;--opacity:0.66;--blur:0.48px;--float-duration:4.9s" data-depth="14">Scattering</span>
+  <span class="uail-word" style="--x:79%;--y:60%;--size:21px;--weight:620;--color:#bfe1ff;--opacity:0.66;--blur:0.48px;--float-duration:5.2s" data-depth="14">Reverberation</span>
+
+  <span class="uail-word" style="--x:35%;--y:88%;--size:22px;--weight:620;--color:#a6d2ff;--opacity:0.6;--blur:0.6px;--float-duration:5.4s" data-depth="12">Acoustic Propagation</span>
+  <span class="uail-word" style="--x:51%;--y:89%;--size:21px;--weight:610;--color:#a6d2ff;--opacity:0.58;--blur:0.66px;--float-duration:5.8s" data-depth="11">Array Processing</span>
+  <span class="uail-word" style="--x:65%;--y:88%;--size:22px;--weight:620;--color:#a6d2ff;--opacity:0.6;--blur:0.6px;--float-duration:5.3s" data-depth="12">Ship Classification</span>
+  <span class="uail-word" style="--x:50%;--y:20%;--size:20px;--weight:600;--color:#c6e6ff;--opacity:0.64;--blur:0.42px;--float-duration:5.7s" data-depth="11">Machine Learning</span>
+  <span class="uail-word" style="--x:58%;--y:32%;--size:19px;--weight:600;--color:#b1dbff;--opacity:0.58;--blur:0.55px;--float-duration:5.0s" data-depth="10">Frequency Analysis</span>
+
 </section>
 
 <script>
@@ -119,17 +130,15 @@
       const dx = clientX - wx;
       const dy = clientY - wy;
       const distance = Math.sqrt(dx * dx + dy * dy);
-      word.classList.toggle("is-near", distance < 180);
+      word.classList.toggle("is-near", distance < 150);
     });
   }
 
-  cloud.addEventListener("mousemove", (event) => {
-    updateTarget(event.clientX, event.clientY);
-  });
-
+  cloud.addEventListener("mousemove", (event) => updateTarget(event.clientX, event.clientY));
   cloud.addEventListener("touchmove", (event) => {
-    if (!event.touches || !event.touches[0]) return;
-    updateTarget(event.touches[0].clientX, event.touches[0].clientY);
+    if (event.touches && event.touches[0]) {
+      updateTarget(event.touches[0].clientX, event.touches[0].clientY);
+    }
   }, { passive: true });
 
   cloud.addEventListener("mouseleave", () => {
@@ -144,13 +153,13 @@
     currentY += (targetY - currentY) * 0.08;
 
     words.forEach((word, index) => {
-      const depth = Number(word.dataset.depth || 20);
-      const phase = index * 0.65;
-      const idleX = hasPointer ? 0 : Math.sin(Date.now() / 1400 + phase) * 3;
-      const idleY = hasPointer ? 0 : Math.cos(Date.now() / 1600 + phase) * 3;
+      const depth = Number(word.dataset.depth || 12);
+      const phase = index * 0.63;
+      const idleX = hasPointer ? 0 : Math.sin(Date.now() / 1500 + phase) * 2.5;
+      const idleY = hasPointer ? 0 : Math.cos(Date.now() / 1700 + phase) * 2.5;
 
       const moveX = currentX * depth + idleX;
-      const moveY = currentY * depth * 0.65 + idleY;
+      const moveY = currentY * depth * 0.60 + idleY;
 
       word.style.transform = `translate(calc(-50% + ${moveX}px), calc(-50% + ${moveY}px))`;
     });

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>UAIL Interactive Keyword Cloud</title>
+<style>
+  :root {
+    --navy: #0c2d63;
+    --mid: #66789d;
+    --light: #9aa6bf;
+    --bg: #ffffff;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    font-family: Lato, Arial, Helvetica, sans-serif;
+    overflow: hidden;
+  }
+
+  .uail-keyword-cloud {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    min-height: 360px;
+    overflow: hidden;
+    background: #ffffff;
+    cursor: default;
+    user-select: none;
+  }
+
+  .uail-word {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    transform: translate(-50%, -50%);
+    color: var(--color);
+    font-size: var(--size);
+    font-weight: var(--weight);
+    letter-spacing: 0.01em;
+    line-height: 1;
+    white-space: nowrap;
+    opacity: var(--opacity);
+    filter: blur(var(--blur));
+    will-change: transform, opacity, filter;
+    transition:
+      opacity 0.35s ease,
+      filter 0.35s ease,
+      color 0.35s ease;
+    animation: uailFloat var(--float-duration) ease-in-out infinite alternate;
+  }
+
+  .uail-word.is-near {
+    opacity: 1;
+    filter: blur(0);
+    color: #08265a;
+  }
+
+  @keyframes uailFloat {
+    from { margin-top: -4px; }
+    to { margin-top: 4px; }
+  }
+
+  @media (max-width: 760px) {
+    .uail-keyword-cloud { height: 420px; }
+    .uail-word { font-size: calc(var(--size) * 0.72); }
+  }
+
+  @media (max-width: 480px) {
+    .uail-keyword-cloud { height: 360px; }
+    .uail-word { font-size: calc(var(--size) * 0.55); }
+  }
+</style>
+</head>
+<body>
+<section class="uail-keyword-cloud" id="uailKeywordCloud" aria-label="Interactive keyword cloud for underwater acoustics intelligence research">
+  <span class="uail-word" style="--x:50%;--y:39%;--size:45px;--weight:800;--color:#0c2d63;--opacity:1;--blur:0px;--float-duration:4.2s" data-depth="42">Underwater Acoustics</span>
+  <span class="uail-word" style="--x:30%;--y:47%;--size:41px;--weight:800;--color:#0c2d63;--opacity:1;--blur:0px;--float-duration:3.7s" data-depth="38">Passive Sonar</span>
+  <span class="uail-word" style="--x:60%;--y:61%;--size:39px;--weight:800;--color:#0c2d63;--opacity:1;--blur:0px;--float-duration:4.8s" data-depth="36">Target Detection</span>
+  <span class="uail-word" style="--x:44%;--y:76%;--size:40px;--weight:800;--color:#0c2d63;--opacity:1;--blur:0px;--float-duration:3.9s" data-depth="35">Ship Classification</span>
+  <span class="uail-word" style="--x:69%;--y:29%;--size:38px;--weight:760;--color:#153164;--opacity:.92;--blur:.15px;--float-duration:4.4s" data-depth="34">Active Sonar</span>
+
+  <span class="uail-word" style="--x:47%;--y:18%;--size:30px;--weight:700;--color:#677796;--opacity:.58;--blur:.7px;--float-duration:4.9s" data-depth="24">Signal Processing</span>
+  <span class="uail-word" style="--x:21%;--y:24%;--size:31px;--weight:700;--color:#647493;--opacity:.62;--blur:.6px;--float-duration:4.1s" data-depth="25">Scattering</span>
+  <span class="uail-word" style="--x:79%;--y:46%;--size:30px;--weight:700;--color:#697899;--opacity:.66;--blur:.5px;--float-duration:4.7s" data-depth="25">Reverberation</span>
+  <span class="uail-word" style="--x:68%;--y:75%;--size:30px;--weight:700;--color:#68799a;--opacity:.64;--blur:.45px;--float-duration:4.3s" data-depth="23">Array Processing</span>
+  <span class="uail-word" style="--x:29%;--y:83%;--size:30px;--weight:700;--color:#697899;--opacity:.72;--blur:.25px;--float-duration:3.8s" data-depth="23">Machine Learning</span>
+
+  <span class="uail-word" style="--x:18%;--y:59%;--size:29px;--weight:700;--color:#53678e;--opacity:.72;--blur:.3px;--float-duration:4.5s" data-depth="22">Beamforming</span>
+  <span class="uail-word" style="--x:70%;--y:57%;--size:26px;--weight:600;--color:#9aa4bb;--opacity:.58;--blur:.65px;--float-duration:5.2s" data-depth="16">Source Localization</span>
+  <span class="uail-word" style="--x:35%;--y:33%;--size:26px;--weight:620;--color:#8d9ab3;--opacity:.56;--blur:.75px;--float-duration:5s" data-depth="15">DOA Estimation</span>
+  <span class="uail-word" style="--x:23%;--y:71%;--size:24px;--weight:600;--color:#9aa4bb;--opacity:.52;--blur:.8px;--float-duration:5.3s" data-depth="14">Acoustic Propagation</span>
+  <span class="uail-word" style="--x:57%;--y:25%;--size:23px;--weight:600;--color:#a4adc0;--opacity:.45;--blur:1px;--float-duration:5.6s" data-depth="13">Frequency Analysis</span>
+</section>
+
+<script>
+(function () {
+  const cloud = document.getElementById("uailKeywordCloud");
+  const words = Array.from(cloud.querySelectorAll(".uail-word"));
+
+  let targetX = 0;
+  let targetY = 0;
+  let currentX = 0;
+  let currentY = 0;
+  let hasPointer = false;
+
+  function updateTarget(clientX, clientY) {
+    const rect = cloud.getBoundingClientRect();
+    targetX = ((clientX - rect.left) / rect.width - 0.5) * 2;
+    targetY = ((clientY - rect.top) / rect.height - 0.5) * 2;
+    hasPointer = true;
+
+    words.forEach((word) => {
+      const wRect = word.getBoundingClientRect();
+      const wx = wRect.left + wRect.width / 2;
+      const wy = wRect.top + wRect.height / 2;
+      const dx = clientX - wx;
+      const dy = clientY - wy;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      word.classList.toggle("is-near", distance < 180);
+    });
+  }
+
+  cloud.addEventListener("mousemove", (event) => {
+    updateTarget(event.clientX, event.clientY);
+  });
+
+  cloud.addEventListener("touchmove", (event) => {
+    if (!event.touches || !event.touches[0]) return;
+    updateTarget(event.touches[0].clientX, event.touches[0].clientY);
+  }, { passive: true });
+
+  cloud.addEventListener("mouseleave", () => {
+    hasPointer = false;
+    targetX = 0;
+    targetY = 0;
+    words.forEach((word) => word.classList.remove("is-near"));
+  });
+
+  function animate() {
+    currentX += (targetX - currentX) * 0.08;
+    currentY += (targetY - currentY) * 0.08;
+
+    words.forEach((word, index) => {
+      const depth = Number(word.dataset.depth || 20);
+      const phase = index * 0.65;
+      const idleX = hasPointer ? 0 : Math.sin(Date.now() / 1400 + phase) * 3;
+      const idleY = hasPointer ? 0 : Math.cos(Date.now() / 1600 + phase) * 3;
+
+      const moveX = currentX * depth + idleX;
+      const moveY = currentY * depth * 0.65 + idleY;
+
+      word.style.transform = `translate(calc(-50% + ${moveX}px), calc(-50% + ${moveY}px))`;
+    });
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+})();
+</script>
+</body>
+</html>
